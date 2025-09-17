@@ -1,3 +1,15 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff8f0;
+  color: #333;
+  text-align: center;
+}
+header {
+  background: #a52a2a;
+  color: white;
+  padding: 1.5rem;
+}
 const menuData = [
   {name: "Sirloin Steak", price: "£22"},
   {name: "Steak Bacon & Cheese Burger", price: "£16"},
