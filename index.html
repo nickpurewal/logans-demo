@@ -3,13 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>LOGAN'S Bar & Grill</title>
-  <link rel="stylesheet" href="style.css">
+  <title>{{Restaurant Name}}</title>
+  <style>
+    body {margin:0;font-family:Arial, sans-serif;background:#fff8f0;color:#333;text-align:center;}
+    header {background:#a52a2a;color:#fff;padding:1.5rem;}
+    nav {margin:1rem 0;}
+    nav button {margin:0 .5rem;padding:.5rem 1rem;background:#d2691e;border:none;color:#fff;cursor:pointer;border-radius:4px;}
+    nav button:hover {background:#b2561c;}
+    .menu-item {margin:1rem auto;max-width:500px;padding:1rem;border-bottom:1px solid #ccc;}
+    footer {margin-top:2rem;padding:1rem;background:#eee;}
+  </style>
 </head>
 <body>
   <header>
-    <h1>LOGAN'S Bar & Grill</h1>
-    <h2>Tex-Mex • Fire Meets Spice</h2>
+    <h1 id="brand">LOGAN'S Bar & Grill</h1>
+    <h2 id="tagline">Tex-Mex • Fire Meets Spice</h2>
   </header>
 
   <nav>
@@ -18,13 +26,52 @@
     <button data-section="contact">Contact</button>
   </nav>
 
-  <main id="content">
-    <!-- Menu populated by script.js -->
-  </main>
+  <main id="content"></main>
 
-  <footer>© 2025 Logan's Bar & Grill</footer>
+  <footer>© <span id="year"></span> <span id="brand-footer">LOGAN'S Bar & Grill</span></footer>
 
-  <script src="script.js"></script>
+  <script>
+    // CONFIG — CHANGE THESE FOR EACH RESTAURANT
+    const config = {
+      brand: "LOGAN'S Bar & Grill",
+      tagline: "Tex-Mex • Fire Meets Spice",
+      about: "Welcome to Logan's Bar & Grill – where Tex-Mex fire meets spice. Great steaks, bold flavours and a relaxed grill-house vibe.",
+      contact: "Email: hello@logansdemo.com<br>Phone: 020-000-0000",
+      menu: [
+        {name: "Sirloin Steak", price: "£22"},
+        {name: "Steak Bacon & Cheese Burger", price: "£16"},
+        {name: "Lamb Chops", price: "£20"},
+        {name: "Loaded Nachos", price: "£9"},
+        {name: "Tandoori Mixed Grill", price: "£18"}
+      ]
+    };
+
+    // RENDER FUNCTIONS
+    function renderMenu(){
+      const c=document.getElementById("content");
+      c.innerHTML="";
+      config.menu.forEach(i=>{
+        c.innerHTML+=`<div class="menu-item"><h3>${i.name}</h3><p>${i.price}</p></div>`;
+      });
+    }
+    function renderAbout(){document.getElementById("content").innerHTML=`<p>${config.about}</p>`;}
+    function renderContact(){document.getElementById("content").innerHTML=`<p>${config.contact}</p>`;}
+
+    // INITIALISE
+    document.getElementById("brand").innerText=config.brand;
+    document.getElementById("brand-footer").innerText=config.brand;
+    document.getElementById("tagline").innerText=config.tagline;
+    document.getElementById("year").innerText=new Date().getFullYear();
+
+    document.querySelectorAll("nav button").forEach(b=>{
+      b.addEventListener("click",()=>{
+        if(b.dataset.section==="menu") renderMenu();
+        if(b.dataset.section==="about") renderAbout();
+        if(b.dataset.section==="contact") renderContact();
+      });
+    });
+
+    renderMenu();
+  </script>
 </body>
 </html>
- 
